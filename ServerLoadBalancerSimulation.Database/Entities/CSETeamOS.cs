@@ -15,6 +15,18 @@ public class CSETeamOS
     public required string Name { get; set; }
     public required string Group { get; set; }
     public required string CourseName { get; set; }
+
+    public CSETeamOS()
+    {
+    }
+
+    public CSETeamOS(string name, string group, string courseName)
+    {
+        Name = name;
+        Group = group;
+        CourseName = courseName;
+    }
+
 }
 
 public class CSETeamOSConfiguration : IEntityTypeConfiguration<CSETeamOS>
