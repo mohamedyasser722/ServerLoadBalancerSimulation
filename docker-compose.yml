@@ -2,21 +2,27 @@ version: '3.8'
 
 services:
   backendserver1:
-    build: ./BackendServer1
+    build:
+      context: .
+      dockerfile: ./BackendServer1/Dockerfile
     ports:
       - "5001:8080"
     environment:
       - SERVER_NAME=BackendServer1
 
   backendserver2:
-    build: ./BackendServer2
+    build:
+      context: .
+      dockerfile: ./BackendServer2/Dockerfile
     ports:
       - "5002:8080"
     environment:
       - SERVER_NAME=BackendServer2
 
   backendserver3:
-    build: ./BackendServer3
+    build:
+      context: .
+      dockerfile: ./BackendServer3/Dockerfile
     ports:
       - "5003:8080"
     environment:
@@ -32,3 +38,15 @@ services:
       - backendserver1
       - backendserver2
       - backendserver3
+    
+  CSETeamOSDB:
+    image: postgres:latest
+    container_name: CSETeamOSDB
+    environment:
+      - POSTGRES_DB=CSETeamOSDB
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data
+    ports:
+      - "4332:5432"

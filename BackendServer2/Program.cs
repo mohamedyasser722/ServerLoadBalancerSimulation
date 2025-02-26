@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using ServerLoadBalancerSimulation.Database;
+
 namespace BackendServer2;
 
 public class Program
@@ -7,6 +10,10 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+
+        builder.Services.AddDbContext<AppDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
         // Add services to the container.
 
         builder.Services.AddControllers();
@@ -14,6 +21,8 @@ public class Program
         builder.Services.AddOpenApi();
 
         var app = builder.Build();
+
+        //DatabaseInitializer.SeedDatabase(app.Services);
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
