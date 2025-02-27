@@ -47,6 +47,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./.containers/database:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "4332:5432"
+    platform: linux/arm64  # Ensure proper image for M1
+
+volumes:
+  postgres_data:
